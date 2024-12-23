@@ -3,69 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promise Table</title>
+    <title>Promise Example</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <table border="1">
-        <tr>
-            <th>Promise</th>
-            <th>Time Taken (seconds)</th>
-        </tr>
-        <tr id="loadingRow">
-            <td colspan="2">Loading...</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Promise</th>
+                <th>Time Taken (seconds)</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <tr>
+                <td colspan="2" id="loading-text">Loading...</td>
+            </tr>
+        </tbody>
     </table>
 
-    <script>
-        // Function to create a random delay
-        function createRandomPromise() {
-            const delay = Math.floor(Math.random() * 3) + 1; // Random delay between 1 and 3 seconds
-            return new Promise(resolve => setTimeout(() => resolve(delay), delay * 1000));
-        }
-
-        // Create 3 promises
-        const promise1 = createRandomPromise();
-        const promise2 = createRandomPromise();
-        const promise3 = createRandomPromise();
-
-        // Wait for all promises to resolve
-        Promise.all([promise1, promise2, promise3])
-            .then(results => {
-                // Remove the loading row
-                const loadingRow = document.getElementById("loadingRow");
-                loadingRow.remove();
-
-                // Calculate the total time taken for all promises
-                const totalTime = results.reduce((acc, time) => acc + time, 0);
-
-                // Create new rows with the results
-                const table = document.querySelector('table');
-
-                // First row: Promise 1
-                const row1 = table.insertRow();
-                row1.insertCell(0).textContent = 'Promise 1';
-                row1.insertCell(1).textContent = results[0];
-
-                // Second row: Promise 2
-                const row2 = table.insertRow();
-                row2.insertCell(0).textContent = 'Promise 2';
-                row2.insertCell(1).textContent = results[1];
-
-                // Third row: Promise 3
-                const row3 = table.insertRow();
-                row3.insertCell(0).textContent = 'Promise 3';
-                row3.insertCell(1).textContent = results[2];
-
-                // Fourth row: Total
-                const row4 = table.insertRow();
-                row4.insertCell(0).textContent = 'Total';
-                row4.insertCell(1).textContent = totalTime.toFixed(3); // Show total time with 3 decimal places
-            })
-            .catch(error => {
-                console.error('Error with promises:', error);
-            });
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
